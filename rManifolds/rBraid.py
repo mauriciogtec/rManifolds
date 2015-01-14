@@ -1,7 +1,7 @@
 import  random, operator, math, spherogram, numpy
 class rBraid(): 
     ""
-    def __init__(self,n,k,filename=""):
+    def __init__(self,n,k,filename=""):	
       	# Author: Mauricio B. Garcia Tec
         # Date: February 2014
         # In:
@@ -14,13 +14,13 @@ class rBraid():
         const = max(1,k/25.0) # a posteriori resizes the knot conveniently, controls the height/width ratio.
         
         # Bottom of the braid.
-        strand_pos = [range(n)]+[range(n)] # contains at which vertex the position of the i-th strand.
-        swap, swapinv = range(n), range(n) # helpful during the walk.
+        strand_pos = [range(n)]+[range(n)] # the vertex position of the i-th strand.
+        swap, swapinv = range(n), range(n) # auxiliaries for computations with permutations
         height = [[ (s+1) for s in range(n)]] + [[n+1 for s in range(n)]] 
         crossings = [] # Pairs indicating the positions of the n crossings. Left edge passes under the right edge.
-        cross_sph_list = [ [] for s in range(n)] # This is the memory intensive part. We will create a list of length n. Each elements is a sublist
-                           # of triples [a,b,c] where a E {0,1,2,...,n-1} indicates the vertices touched by each strand and 
-                           # and b E {-1,1} indicates if the flow of the strand at that vertex is above (1) or below (-1).
+        cross_sph_list = [ [] for s in range(n)] # This is the memory intensive part. We will create a list of length n. 
+			   # Each element is a sublist of triples [a,b,c] where a \in {0,1,2,...,n-1} indicates the vertices touched by each strand and 
+                           # and b \in {-1,1} indicates whether the flow of the strand at that vertex is above (1) or below (-1).
         cross_orientation = []  # vector with values {0,1} indication type of crossing orientation, right over left (0), otherwise (1)
         
         # The random walk.
@@ -30,7 +30,7 @@ class rBraid():
             pos = (gen-1)/2 # connects the pos-th and (pos+1)-th strands.
             above = (gen-1)%2 # tells which strand passes above. If 1 then left over right, 0 otherwise.
             height += [[(n + 2 + i) for s in range(n)]] # for simplicity in the resulting code, we will generate 2*k levels during the walk.
-            ### strand position (currently pretty unefficient).
+            ### strand position (efficiency to be improved).
             swap_aux = swap[pos]
             swap[pos] = swap[pos+1]
             swap[pos+1] = swap_aux
@@ -55,7 +55,7 @@ class rBraid():
         strand_pos += [swap_inv] 
         height += [[(2*n+k+1-swap_inv[s]) for s in range(n)]]      
             
-        # Detect the number of components factoring the las permutation. Each cycle stands for a component.
+        # Detects the number of components factoring the last permutation; each cycle stands for a component. Could also be improved.
         remaining = {s for s in range(n)}
         perm = [swap_inv[i] for i in range(n)]
         cycles = [] 
@@ -81,7 +81,9 @@ class rBraid():
         # Note on vertex counting: to each strand we will add 2 points to close the strand. Each strand has
         #   k+3 vertices as we defined them, that makes k+5 vertices.
             
-        # The variable output will be use write the link in a .lnk file.
+        # With the generated braid we will I) build a .lnk file a store it there II) create an object using the spherogram module
+
+	# I) We will print the object into 'filename'.lnk for the PLink editor. We store the string into 'output'.
         output = '% Link Projection \n'+str(linkcomponents)+'\n'
         output += '   0 0\n'
         cycle_pos = [len(cycles[0])]
@@ -93,7 +95,7 @@ class rBraid():
         for comp in range(linkcomponents-1): # link component closure and opening.
             output += '   '+str(cycle_pos[comp]*(k+5))+' '+str(cycle_pos[comp]*(k+5))+'\n'
                 
-        # Vertex printing            
+        # Printing the vertices          
         vertexnumber = n*(k+5)
         output += str(vertexnumber)+'\n'
         perm = [s for sublist in cycles for s in sublist] # we print vertices in cycle order, in reverse order as swap.
@@ -101,14 +103,14 @@ class rBraid():
         for i in range(n):
             x = [const*row[perm[i]] for row in strand_pos]
             y = [row[perm[i]] for row in height]
-            lastx = x[k+2]/const # just for better visualizing
-            # ---- now we add two points for closing the braid (try to picture this).
-            x += [2*const*n-lastx] + [2*const*n-lastx] # arbitrarily moving the points to the right to close them.
+            lastx = x[k+2]/const # scaling for improving visualization
+            # ---- now we add two points for closing the braid so that we can close the braid.
+            x += [2*const*n-lastx] + [2*const*n-lastx] 
             y += [2*n+k+1-lastx] + [lastx+1]
             for j in range(k+5):
                 output += '   '+str(x[j])+' '+str(-y[j])+'\n'
                     
-        # Edges printing            
+        # Printing the edges          
         output += str(vertexnumber)+'\n'
         cycle_pos = [0] + [(k+5)*s for s in cycle_pos] 
         
@@ -116,13 +118,13 @@ class rBraid():
             for t in range(cycle_pos[s],cycle_pos[s+1]):
                 output += '   '+str(t)+' '+str((t+1)%cycle_pos[s+1]+cycle_pos[s]*((t+1)/cycle_pos[s+1]))+'\n'
                     
-        # Crossings printing
+        # Printing the crosses
         output += str(k)+'\n'
-        # NOTE on crossings: luckily we know that there are exactly k crossings and where they take place.         
+        # Luckily, we know that there are exactly k crossings and where they take place.         
         perm_inv = [[perm[i],i] for i in range(n)]
         perm_inv.sort(key=operator.itemgetter(0))
         perm_inv = [row[1] for row in perm_inv] 
-        # invert perm to know rewerite crossings in terms of edge numbers. For example if 
+        # Invert permutation to rewrite crossings in terms of edge numbers. For example, if 
         # there is a cross between 2 and 1 but 2 was printed first, then we want pinv so that pinv(2)=1.    
         crossings = [[(k+5)*perm_inv[s[0]],(k+5)*perm_inv[s[1]]] for s in crossings]
         crossings = [[crossings[i][0]+i+1,crossings[i][1]+i+1] for i in range(k)]
@@ -144,7 +146,7 @@ class rBraid():
                 file_output.write(output)
             print('A file named "'+filename+'" was created in the current working directory.')
 
-        # For the spherogram module.
+        # II) To create an object directly into SnapPy we use the spheregram module convention.
         Sph_Crossings = [spherogram.links.links.Crossing(j) for j in range(k)]
         # we will glue cross_sph_list according to observed cycles.
         for i in range(linkcomponents):
@@ -185,5 +187,5 @@ class rBraid():
                     else:
                         Sph_Crossings[vertex[0]][proc] = Sph_Crossings[next_vertex[0]][1]                
                             
-        # Now we craft the link.
+        # We know store the complement of the braid into a manifold object.
         self.manifold = spherogram.links.links.Link(Sph_Crossings).exterior()

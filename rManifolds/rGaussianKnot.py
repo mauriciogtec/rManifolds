@@ -22,7 +22,9 @@ class rGaussianKnot():
             y += [y[i-1] + numpy.random.normal(cond_mean_y,cond_sd,1)[0]]
             z += [z[i-1] + numpy.random.normal(cond_mean_z,cond_sd,1)[0]]
 
-        # The rest of the algorithm is the same as in the uniform case. I will code comments.
+        # With the generated knot we will I) build a .lnk file a store it there II) create an object using the spherogram module
+
+	# I) The variable output stores the string that will be printed into 'filename'.lnk for the PLink editor
         output = '% Link Projection \n1 \n   0    0'	  
         output += '\n'+str(n)
         for i in range(n):
@@ -77,7 +79,8 @@ class rGaussianKnot():
                 file_output.write(output)
 	    self.filename = filename
             print('A file named "'+filename+'" was created in the current working directory.')
-    
+    	
+	# II) the spherogram module is used to create a manifold object directly from the knot complement
         crossings = [spherogram.links.links.Crossing(j) for j in range(totcross)] # to start a variable for crossing conventions
         k = 0
         while k < N:

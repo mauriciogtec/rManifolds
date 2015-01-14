@@ -83,7 +83,10 @@ class rUnifKnot():
         crossinfo.sort(key=operator.itemgetter(0,3)) #  (Nice stuff!).
         crossid = [row[6] for row in crossinfo] # we extract the crossid column for simplicit
     
-        # Print the .lnk file for the PLink editor.
+	##############
+ 	# With generated knot we will I) build a .lnk file a store it there II) create an object using the spherogram module
+
+        # I) Print the .lnk file for the PLink editor.
         output += '\n'+str(totcross)
         for i in range(totcross):
             output += '\n   '+str(under[i])+'    '+str(above[i])
@@ -100,7 +103,7 @@ class rUnifKnot():
                 file_output.write(output)
             print('A file named "'+filename+'" was created in the current working directory.')
     
-        # Use the Spherogram module instead.
+        # II) Use the Spherogram module instead.
         crossings = [spherogram.links.links.Crossing(j) for j in range(totcross)] # to start a variable for crossing conventions
         # We need to mark each crossing
         k = 0
@@ -146,5 +149,6 @@ class rUnifKnot():
                 else: # Case ii) skew direction
                     crossings[crossid[k]][proc] = crossings[crossid[(k+1)%N]][1]						
             k += 1	
-        # Now we craft the knot.
+
+      	# We know store the complement of the braid into a manifold object.
         self.manifold = spherogram.links.links.Link(crossings).exterior()
