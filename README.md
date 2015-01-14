@@ -13,3 +13,14 @@ A gaussian random walk of variance <b>sigma^2</b> is defined as a random walk in
 
 This model of a random knot has found some applications for modeling protein molecules [1]. As the number of vertices goes to infinity, these knots usually turn out to be satellite knots due to the formation of clusters [3].
 
+```python
+In [1]: n = 1000 # a parameter for the number of vertices in the knot.
+In [2]: obj = rGaussianKnot(n, filename='example1') # this will store as a rManifold object.
+A file named "example1.lnk" was created in the current working directory.
+```
+```python
+In [4]: M.homology()
+Out[4]: Z
+In [4]: M.volume()
+Out[4]: -0.00
+```
