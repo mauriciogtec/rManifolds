@@ -1,5 +1,5 @@
 import  random, operator, math, spherogram, numpy
-class gaussian_walk(): 
+class rGaussianKnot(): 
     ""
     def __init__(self, n, filename="", sigma=1):
     	# Author: Mauricio B. Garcia Tec.

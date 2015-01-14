@@ -7,5 +7,5 @@ try:
 except ImportError:
     pass
 
-def __init__(self):
-	__all__ = ["rBraid", "rUnifKnot", "Gaussian_walk"]
+# def __init__(self):
+#	__all__ = ["rBraid", "rUnifKnot", "Gaussian_walk"]
