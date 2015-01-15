@@ -44,6 +44,7 @@ The .lnk file created can be opened using the SnapPy interface and the Plink edi
 This is the simplest model of rando knot. Random points in a cube are generated and and joint to form a knot (the initial and the last point are joint together). A simple system of equation can be solved to create a planar diagram of the knot. 
 
 Here is a screenshot of resulting knot:
+
 <img src="https://github.com/mauriciogtec/rManifolds/blob/master/screenshots/rUnifKnot.png?raw=true" alt="alt text" width="250" height="250">
 
 <h2> Random braids </h2>
