@@ -41,7 +41,11 @@ The .lnk file created can be opened using the SnapPy interface and the Plink edi
 <img src="https://github.com/mauriciogtec/rManifolds/blob/master/screenshots/GaussianKnot.png?raw=true" alt="alt text" width="250" height="250">
 
 <h2> Random uniform knots </h2>
-This is the simplest model of rando knot. Random points in a cube are generated and and joint to form a knot (the initial and the last point are joint together). A simple system of equation can be solved to create a planar diagram of the knot. 
+This is the simplest model of rando knot. Random points in a cube are generated and and joint to form a knot (the initial and the last point are joint together). A simple system of equation can be solved to create a planar diagram of the knot. Both the filename and the manifold can be recovered and manipulated as in the case of Gaussian knots.
+
+```python
+In [1]: M = rUnifKnot(100)
+```
 
 Here is a screenshot of resulting knot:
 
