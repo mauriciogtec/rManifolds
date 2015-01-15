@@ -39,4 +39,4 @@ Out[6]: 1.0 E-05
 
 The .lnk file created can be opened using the SnapPy interface and the Plink editor. The following image is an example of Gaussian knot with a 1000 vertices.
 
-![Alt text](https://github.com/mauriciogtec/rManifolds/blob/master/screenshots/GaussianKnot.png?raw=true "Gaussian knot")
+<img src="https://github.com/mauriciogtec/rManifolds/blob/master/screenshots/GaussianKnot.png?raw=tru" alt="alt text" width="100" height="100">
