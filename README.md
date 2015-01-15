@@ -17,7 +17,7 @@ from rManifolds import *
 
 A gaussian random walk of variance <b>sigma^2</b> is defined as a random walk in which the deplacements in each direction are independent and normally distribute with mean 0 and variance <b>sigma^2</b>. Given a fixed number of steps, this stochastic processes is conditioned so that the last point is the same as the departing point, obtaining a knot. The random walk is modeled in R^3 and then scaled to fit nicely into the SnapPy's standard grid of 500x500 inside the PLink editor.
 
-This model of a random knot has found some applications for modeling protein molecules [1]. As the number of vertices goes to infinity, these knots usually turn out to be satellite knots due to the formation of clusters [3].
+This model of a random knot has found some applications for modeling protein molecules [1]. As the number of vertices goes to infinity, these knots usually turn out to be satellite knots due to the formation of clusters [2].
 
 ```python
 In [1]: n = 1000 
@@ -41,10 +41,14 @@ The .lnk file created can be opened using the SnapPy interface and the Plink edi
 <img src="https://github.com/mauriciogtec/rManifolds/blob/master/screenshots/GaussianKnot.png?raw=true" alt="alt text" width="250" height="250">
 
 <h2> Random uniform knots </h2>
+This is the simplest model of rando knot. Random points in a cube are generated and and joint to form a knot (the initial and the last point are joint together). A simple system of equation can be solved to create a planar diagram of the knot. 
+
+Here is a screenshot of resulting knot:
+<img src="https://github.com/mauriciogtec/rManifolds/blob/master/screenshots/rUnifKnot.png?raw=true" alt="alt text" width="250" height="250">
 
 <h2> Random braids </h2>
 
-A different way of generating random manifolds is by specifying a probability distribution in the Braid group of n strands. In the current version a uniform distribution is given over the generators of the braid group. To create a Braid object one needs two parameters, one for the numbers of strands, and another one for the number of crossings in the link diagram. The result is sometimes a knot and sometimes a link. Recently, Ma [2] proved that as the length of the walk goes to infinity, the probability that the resulting link is hyperbolic goes to one.
+A different way of generating random manifolds is by specifying a probability distribution in the Braid group of n strands. In the current version a uniform distribution is given over the generators of the braid group. To create a Braid object one needs two parameters, one for the numbers of strands, and another one for the number of crossings in the link diagram. The result is sometimes a knot and sometimes a link. Recently, Ma [3] proved that as the length of the walk goes to infinity, the probability that the resulting link is hyperbolic goes to one.
 
 From the created random braid one can recover the filename (when specified) and the manifold object as in the above examples (see Gaussian knots). For random braids, one can also ask for the number of link components.
 
