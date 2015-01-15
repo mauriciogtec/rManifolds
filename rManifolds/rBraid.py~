@@ -83,7 +83,7 @@ class rBraid():
             
         # With the generated braid we will I) build a .lnk file a store it there II) create an object using the spherogram module
 
-	# I) We will print the object into 'filename'.lnk for the PLink editor. We store the string into 'ouput'.
+	# I) We will print the object into 'filename'.lnk for the PLink editor. We store the string into 'output'.
         output = '% Link Projection \n'+str(linkcomponents)+'\n'
         output += '   0 0\n'
         cycle_pos = [len(cycles[0])]

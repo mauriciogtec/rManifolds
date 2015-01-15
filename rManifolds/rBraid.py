@@ -142,9 +142,15 @@ class rBraid():
             else:
                 filename = filename + ".lnk"
             self.filename = filename
-            with open(filename,'wt') as file_output:
-                file_output.write(output)
-            print('A file named "'+filename+'" was created in the current working directory.')
+            try:
+		with open(filename,'wt') as file_output:		
+			file_output.write(output)
+			if ("/" not in filename):		
+                   		print('A file named "'+filename+'" was created in the current working directory.')
+			else:
+				print('A file in \n'+filename+'\nwas created')
+            except ValueError:
+		print('A file in the specified directory could not be created!')
 
         # II) To create an object directly into SnapPy we use the spheregram module convention.
         Sph_Crossings = [spherogram.links.links.Crossing(j) for j in range(k)]

@@ -78,7 +78,15 @@ class rGaussianKnot():
             with open(filename,'wt') as file_output:
                 file_output.write(output)
 	    self.filename = filename
-            print('A file named "'+filename+'" was created in the current working directory.')
+            try:
+		with open(filename,'wt') as file_output:		
+			file_output.write(output)
+			if ("/" not in filename):		
+                   		print('A file named "'+filename+'" was created in the current working directory.')
+			else:
+				print('A file in \n'+filename+'\nwas created')
+            except ValueError:
+		print('A file in the specified directory could not be created!')
     	
 	# II) the spherogram module is used to create a manifold object directly from the knot complement
         crossings = [spherogram.links.links.Crossing(j) for j in range(totcross)] # to start a variable for crossing conventions
