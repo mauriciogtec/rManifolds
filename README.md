@@ -1,7 +1,13 @@
-rManifolds
-==========
+rManifolds v0.1
+================
 
-SnapPy/Python module for creating random manifolds.
+
+SnapPy/Python module for creating random manifolds from knots and braids. CUrrently, there are only three variants supported:
+* *Gaussian knots*: uses independent normal distribution to simulate the deplacement in a stochastic processes than begins and ends in the same place.
+* *Random uniform knots*: generates a stochastic processes in which the position of the next vertex is selected uniformly from a fixed confined space.
+* *Random braids*: uses a discrete probability distribution in the generators of the braid group to create a random braid of a fixed number of strands. Currently, it always uses a uniform distribution on the generators, although general distributions will be added.
+
+We know describe each of these methods.
 
 ```python
 from rManifolds import *
