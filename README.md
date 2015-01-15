@@ -21,12 +21,18 @@ This model of a random knot has found some applications for modeling protein mol
 
 ```python
 In [1]: n = 1000 # a parameter for the number of vertices in the knot.
-In [2]: obj = rGaussianKnot(n, filename='example1') # this will store as a rManifold object.
+In [2]: obj = rGaussianKnot(n, filename='example1', sigma=1) # this will store as a rManifold object.
 A file named "example1.lnk" was created in the current working directory.
 ```
+The default value of sigma is 1. If a filename is not specified then the .lnk object is not created. The filename could be just a string, in which case the file is saved in the current working directory, or it could be a long address, in which case it is saved in the specified address. Once the object has been created, we can recover the manifold and the filename from the object. Methods for the objects of type manifolds are available.
+
 ```python
-In [4]: M.homology()
-Out[4]: Z
-In [4]: M.volume()
-Out[4]: -0.00
+In [3]: obj.filename
+Out[3]: '/home/mauriciogtec/example1.lnk'
+In [4]: obj.manifold
+Out[4]: unnamed link(0,0)
+In [5]: obj.manifold.homology()
+Out[5]: Z
+In [6]: obj.manifold.volume()
+Out[6]: 1.0 E-05
 ```
