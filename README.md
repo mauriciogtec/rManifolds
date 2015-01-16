@@ -25,7 +25,7 @@ This model of a random knot has found some applications for modeling protein mol
 ```python
 In [1]: n = 1000 
 In [2]: obj = rGaussianKnot(n, filename='example1', sigma=1) 
-'A file 'example1.lnk' has been created in the current working directory.'
+A file 'example1.lnk' has been created in the current working directory.
 ```
 The default value of sigma is 1 when it is not specified. If a filename is not specified then the .lnk object is not created. The filename could is allowed to be a simple string name, in which case the file is saved in the current working directory, or it could be a long directory address, in which case it is saved in the specified address. Once the object has been created, we can recover the manifold and the filename from the object. Methods for manifold classes are available.
 
